@@ -14,7 +14,15 @@ image.alt = "A teal tile with a cream circle";
 image.width = 96;
 image.height = 96;
 
+let clickCounter: number = 0;
+
 const message = document.createElement("p");
 message.textContent = "Your project starts here.";
 
 app.append(heading, image, message);
+
+image.addEventListener("click", () => {
+  clickCounter++;
+  console.log(clickCounter);
+  message.textContent = clickCounter + "";
+});
