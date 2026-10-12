@@ -14,31 +14,59 @@ image.alt = "A teal tile with a cream circle";
 image.width = 96;
 image.height = 96;
 
-const message = document.createElement("p");
-message.textContent = "Your project starts here.";
+//text element showcasing players total number of petals
+const currentPetals = document.createElement("p");
+currentPetals.textContent = "0 petals";
 
+//text element showcasing players total number of passive petals
+//passive petals == petals per second
+const passivePetals = document.createElement("p");
+passivePetals.textContent = "0 petals per secons";
+
+//buttons for upgrade
 const upgrade = document.createElement("button");
 upgrade.innerText = "6 petals";
 
-let boost = 1;
+const upgradePass = document.createElement("button");
+upgradePass.innerText = "6 petals";
 
-app.append(heading, image, message, upgrade);
+//number added to mouse click on image
+let clickBoost = 1;
 
+//command pattern inspired by L07 to contain the passive boosters
+interface passiveBoost {
+  (base: number): number;
+}
+
+const allPassives: passiveBoost[] = [];
+
+app.append(heading, image, currentPetals, passivePetals, upgrade, upgradePass);
+
+//number of petals
 let petalCounter: number = 0;
 
 image.addEventListener("click", () => {
-  petalCounter += boost;
-  message.textContent = petalCounter + " petals";
+  petalCounter += clickBoost;
+  currentPetals.textContent = petalCounter + " petals";
 });
 
 upgrade.addEventListener("click", function () {
   if (petalCounter >= 6) {
-    boost += 1;
+    clickBoost++;
+    petalCounter -= 6;
+  } else alert("Not enought petals!");
+});
+
+upgradePass.addEventListener("click", function () {
+  if (petalCounter >= 6) {
+    allPassives.push((x) => x + 0.01);
     petalCounter -= 6;
   } else alert("Not enought petals!");
 });
 
 setInterval(function () {
-  petalCounter++;
-  message.textContent = petalCounter + " petals";
+  //for (const passive in allPassives) {
+  //petalCounter += passive(petalCounter);
+  //}
+  currentPetals.textContent = petalCounter + " petals";
 }, 1000);
