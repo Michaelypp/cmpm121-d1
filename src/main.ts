@@ -1,7 +1,6 @@
 // Vite turns this import into a production-safe URL. Keep it as a file so
 // even this tiny example demonstrates a separately deployed asset.
 // @deno-types="./asset-url.d.ts"
-//import tileUrl from "./assets/tile.svg?no-inline";
 import flowerUrl from "./assets/flowerbutton.png?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
@@ -11,7 +10,7 @@ heading.textContent = "D1 project";
 
 const image = document.createElement("img");
 image.src = flowerUrl;
-image.alt = "A teal tile with a cream circle";
+image.alt = "A rose flower";
 image.width = 96;
 image.height = 96;
 
@@ -31,6 +30,8 @@ upgrade.innerText = "6 petals";
 const upgradePass = document.createElement("button");
 upgradePass.innerText = "6 petals";
 
+const upgradeCost = { "pruner": 6, "gardener": 6 };
+
 //number added to mouse click on image
 let clickBoost = 1;
 
@@ -38,7 +39,7 @@ let clickBoost = 1;
 interface passiveBoost {
   (base: number): number;
 }
-
+//define upgrades in here
 const allPassives: passiveBoost[] = [];
 
 app.append(heading, image, currentPetals, passivePetals, upgrade, upgradePass);
@@ -61,13 +62,27 @@ upgrade.addEventListener("click", function () {
 upgradePass.addEventListener("click", function () {
   if (petalCounter >= 6) {
     allPassives.push((x) => x + 0.01);
-    petalCounter -= 6;
+    petalCounter -= upgradeCost["pruner"];
+    upgradeCost["pruner"] *= 0.2;
   } else alert("Not enought petals!");
 });
 
+//TODO: rewrite this to request animation frames so program isn't slowed later on
+//Recived help in office hours
 setInterval(function () {
-  //for (const passive in allPassives) {
-  //petalCounter += passive(petalCounter);
-  //}
-  currentPetals.textContent = petalCounter + " petals";
+  for (const passive in allPassives) {
+    petalCounter += Number(passive[petalCounter]); //look into this more not currently working
+  }
+  //petalCounter++;
 }, 1000);
+
+//trying to add basic structure of animation update.
+//I still dont really understand this part tbh
+const start = 0;
+
+function updatePetals() {
+  const timepassed = 0 - start; //elapsed - start / 10;
+
+  if (timepassed > 1) requestAnimationFrame(updatePetals);
+}
+updatePetals();
