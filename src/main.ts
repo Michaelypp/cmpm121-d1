@@ -6,13 +6,13 @@ import flowerUrl from "./assets/flowerbutton.png?no-inline";
 const app = document.querySelector<HTMLElement>("#app")!;
 
 const heading = document.createElement("h1");
-heading.textContent = "D1 project";
+heading.textContent = "Flower Flow";
 
 const image = document.createElement("img");
 image.src = flowerUrl;
 image.alt = "A rose flower";
-image.width = 96;
-image.height = 96;
+image.width = 150;
+image.height = 150;
 
 //text element showcasing players total number of petals
 const currentPetals = document.createElement("p");
@@ -21,7 +21,7 @@ currentPetals.textContent = "0 petals";
 //text element showcasing players total number of passive petals
 //passive petals == petals per second
 const passivePetals = document.createElement("p");
-passivePetals.textContent = "0 petals per secons";
+passivePetals.textContent = "0 petals per seconds";
 
 //buttons for upgrade
 const upgrade = document.createElement("button");
