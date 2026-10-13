@@ -47,7 +47,7 @@ app.append(heading, image, currentPetals, passivePetals, upgrade, upgradePass);
 //number of petals
 let petalCounter: number = 0;
 
-// flower animation
+// flower animation derived from setInterval earlier on
 const duration = 300;
 
 function popFlower() {
@@ -83,23 +83,3 @@ upgradePass.addEventListener("click", function () {
     upgradeCost["pruner"] *= 0.2;
   } else alert("Not enought petals!");
 });
-
-//TODO: rewrite this to request animation frames so program isn't slowed later on
-//Recived help in office hours
-setInterval(function () {
-  for (const passive in allPassives) {
-    petalCounter += Number(passive[petalCounter]); //look into this more not currently working
-  }
-  //petalCounter++;
-}, 1000);
-
-//trying to add basic structure of animation update.
-//I still dont really understand this part tbh
-const start = 0;
-
-function updatePetals() {
-  const timepassed = 0 - start; //elapsed - start / 10;
-
-  if (timepassed > 1) requestAnimationFrame(updatePetals);
-}
-updatePetals();
