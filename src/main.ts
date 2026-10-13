@@ -68,6 +68,8 @@ function updateText() {
   currentPetals.textContent = Math.floor(petalCounter) + " petals";
   upgrade.disabled = petalCounter < upgradeCost.gardener;
   upgradePass.disabled = petalCounter < upgradeCost.pruner;
+  upgrade.textContent = upgradeCost.gardener + " petals";
+  upgradePass.textContent = upgradeCost.pruner + " petals";
   requestAnimationFrame(updateText);
 }
 requestAnimationFrame(updateText);
@@ -77,17 +79,14 @@ image.addEventListener("click", () => {
   popFlower(); // flower animation
 });
 
-upgrade.addEventListener("click", function () {
-  if (petalCounter >= 6) {
-    clickBoost++;
-    petalCounter -= 6;
-  } else alert("Not enought petals!");
+upgrade.addEventListener("click", () => {
+  petalCounter -= upgradeCost.gardener;
+  clickBoost++;
+  upgradeCost.gardener = Math.ceil(upgradeCost.gardener * 1.2);
 });
 
-upgradePass.addEventListener("click", function () {
-  if (petalCounter >= 6) {
-    allPassives.push((x) => x + 0.01);
-    petalCounter -= upgradeCost["pruner"];
-    upgradeCost["pruner"] *= 0.2;
-  } else alert("Not enought petals!");
+upgradePass.addEventListener("click", () => {
+  petalCounter -= upgradeCost.pruner;
+  allPassives.push((x) => x + 0.1);
+  upgradeCost.pruner = Math.ceil(upgradeCost.pruner * 1.2);
 });
