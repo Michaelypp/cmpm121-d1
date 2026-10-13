@@ -63,9 +63,17 @@ function popFlower() {
   }
 }
 
+//updating text
+function updateText() {
+  currentPetals.textContent = Math.floor(petalCounter) + " petals";
+  upgrade.disabled = petalCounter < upgradeCost.gardener;
+  upgradePass.disabled = petalCounter < upgradeCost.pruner;
+  requestAnimationFrame(updateText);
+}
+requestAnimationFrame(updateText);
+
 image.addEventListener("click", () => {
   petalCounter += clickBoost;
-  currentPetals.textContent = petalCounter + " petals";
   popFlower(); // flower animation
 });
 
