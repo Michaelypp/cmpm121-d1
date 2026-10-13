@@ -47,9 +47,26 @@ app.append(heading, image, currentPetals, passivePetals, upgrade, upgradePass);
 //number of petals
 let petalCounter: number = 0;
 
+// flower animation
+const duration = 300;
+
+function popFlower() {
+  const zero = document.timeline.currentTime as number;
+  requestAnimationFrame(animate);
+
+  function animate(timestamp: number) {
+    const value = (timestamp - zero) / duration;
+    if (value < 1) {
+      image.style.transform = `scale(${1 - 0.2 * Math.sin(Math.PI * value)})`;
+      requestAnimationFrame(animate);
+    } else image.style.transform = "scale(1)";
+  }
+}
+
 image.addEventListener("click", () => {
   petalCounter += clickBoost;
   currentPetals.textContent = petalCounter + " petals";
+  popFlower(); // flower animation
 });
 
 upgrade.addEventListener("click", function () {
