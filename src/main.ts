@@ -4,8 +4,12 @@
 import flowerUrl from "./assets/flowerbutton.png?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
+app.style.display = "flex";
+app.style.flexDirection = "column";
 
 const heading = document.createElement("h1");
+heading.style.margin = "0 auto 0 auto"
+
 heading.textContent = "Flower Flow";
 
 const image = document.createElement("img");
@@ -14,14 +18,29 @@ image.alt = "A rose flower";
 image.width = 150;
 image.height = 150;
 
+image.style.margin = "0 auto 0 auto"
+
+image.style.cursor = "pointer";
+image.draggable = false; 
+
 //text element showcasing players total number of petals
 const currentPetals = document.createElement("p");
 currentPetals.textContent = "0 petals";
+
+currentPetals.style.margin = "0 auto 0 auto"
 
 //text element showcasing players total number of passive petals
 //passive petals == petals per second
 const passivePetals = document.createElement("p");
 passivePetals.textContent = "0 petals per seconds";
+
+passivePetals.style.margin = "0 auto 0 auto"
+
+// Container for the buttons
+const buttonContainer = document.createElement("div");
+buttonContainer.style.display = "flex";
+buttonContainer.style.width = "100%";
+buttonContainer.style.justifyContent = "center";
 
 //buttons for upgrade
 const upgrade = document.createElement("button");
@@ -51,6 +70,12 @@ app.append(
   image,
   currentPetals,
   passivePetals,
+  buttonContainer,
+);
+
+// Place new buttons inside here to have consistent styling and layout
+
+buttonContainer.append(
   upgrade,
   upgradePass,
   autoclicker,
