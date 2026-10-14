@@ -8,7 +8,7 @@ app.style.display = "flex";
 app.style.flexDirection = "column";
 
 const heading = document.createElement("h1");
-heading.style.margin = "0 auto 0 auto"
+heading.style.margin = "0 auto 0 auto";
 
 heading.textContent = "Flower Flow";
 
@@ -18,23 +18,23 @@ image.alt = "A rose flower";
 image.width = 150;
 image.height = 150;
 
-image.style.margin = "0 auto 0 auto"
+image.style.margin = "0 auto 0 auto";
 
 image.style.cursor = "pointer";
-image.draggable = false; 
+image.draggable = false;
 
 //text element showcasing players total number of petals
 const currentPetals = document.createElement("p");
 currentPetals.textContent = "0 petals";
 
-currentPetals.style.margin = "0 auto 0 auto"
+currentPetals.style.margin = "0 auto 0 auto";
 
 //text element showcasing players total number of passive petals
 //passive petals == petals per second
 const passivePetals = document.createElement("p");
 passivePetals.textContent = "0 petals per seconds";
 
-passivePetals.style.margin = "0 auto 0 auto"
+passivePetals.style.margin = "0 auto 0 auto";
 
 // Container for the buttons
 const buttonContainer = document.createElement("div");
