@@ -37,7 +37,7 @@ const upgradeCost = { "pruner": 6, "gardener": 6, "autoclicker": 20 };
 
 //number added to mouse click on image
 let clickBoost = 1;
-let autoPower = 1;
+const autoPower = 1;
 
 //command pattern inspired by L07 to contain the passive boosters
 interface passiveBoost {
