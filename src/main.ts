@@ -30,10 +30,14 @@ upgrade.innerText = "6 petals";
 const upgradePass = document.createElement("button");
 upgradePass.innerText = "6 petals";
 
-const upgradeCost = { "pruner": 6, "gardener": 6 };
+const autoclicker = document.createElement("button");
+let autoClickers = 0; // how many the player owns
+
+const upgradeCost = { "pruner": 6, "gardener": 6, "autoclicker": 20 };
 
 //number added to mouse click on image
 let clickBoost = 1;
+let autoPower = 1;
 
 //command pattern inspired by L07 to contain the passive boosters
 interface passiveBoost {
@@ -42,7 +46,15 @@ interface passiveBoost {
 //define upgrades in here
 const allPassives: passiveBoost[] = [];
 
-app.append(heading, image, currentPetals, passivePetals, upgrade, upgradePass);
+app.append(
+  heading,
+  image,
+  currentPetals,
+  passivePetals,
+  upgrade,
+  upgradePass,
+  autoclicker,
+);
 
 //number of petals
 let petalCounter: number = 0;
@@ -63,6 +75,18 @@ function popFlower() {
   }
 }
 
+let lastAuto = performance.now();
+
+function autoClick(now: number) {
+  // runs once per second whenever you own at least one
+  if (autoClickers > 0 && now - lastAuto >= 1000) {
+    petalCounter += autoPower;
+    lastAuto = now;
+  }
+  requestAnimationFrame(autoClick);
+}
+requestAnimationFrame(autoClick);
+
 //updating text
 function updateText() {
   currentPetals.textContent = Math.floor(petalCounter) + " petals";
@@ -70,6 +94,9 @@ function updateText() {
   upgradePass.disabled = petalCounter < upgradeCost.pruner;
   upgrade.textContent = upgradeCost.gardener + " petals";
   upgradePass.textContent = upgradeCost.pruner + " petals";
+  autoclicker.textContent =
+    `Autoclicker (${autoClickers}): ${upgradeCost.autoclicker} petals`;
+  autoclicker.disabled = petalCounter < upgradeCost.autoclicker;
   requestAnimationFrame(updateText);
 }
 requestAnimationFrame(updateText);
@@ -89,4 +116,10 @@ upgradePass.addEventListener("click", () => {
   petalCounter -= upgradeCost.pruner;
   allPassives.push((x) => x + 0.1);
   upgradeCost.pruner = Math.ceil(upgradeCost.pruner * 1.2);
+});
+
+autoclicker.addEventListener("click", () => {
+  petalCounter -= upgradeCost.autoclicker;
+  autoClickers++;
+  upgradeCost.autoclicker = Math.ceil(upgradeCost.autoclicker * 1.2);
 });
